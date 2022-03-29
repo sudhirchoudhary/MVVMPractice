@@ -38,10 +38,12 @@ public class PagingAdapter extends PagingDataAdapter<Image, PagingAdapter.ViewHo
 
         RequestOptions defaultOptions = new RequestOptions()
                 .error(R.drawable.ic_launcher_background);
-        Glide.with(context)
-                .setDefaultRequestOptions(defaultOptions)
-                .load(image.getLargeImageURL())
-                .into((holder).itemLayoutBinding.imageView);
+        if(image.getLargeImageURL() != null) {
+            Glide.with(context)
+                    .setDefaultRequestOptions(defaultOptions)
+                    .load(image.getLargeImageURL())
+                    .into((holder).itemLayoutBinding.imageView);
+        }
 
     }
     static DiffUtil.ItemCallback<Image> diff = new
