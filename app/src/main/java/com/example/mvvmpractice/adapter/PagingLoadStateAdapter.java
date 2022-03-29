@@ -44,14 +44,10 @@ public class PagingLoadStateAdapter extends LoadStateAdapter<PagingLoadStateAdap
         }
 
         public void bind(LoadState loadState) {
-            // Check load state
             if (loadState instanceof LoadState.Error) {
-                // Get the error
                 LoadState.Error loadStateError = (LoadState.Error) loadState;
-                // Set text of Error message
                 binding.errorMsg.setText(loadStateError.getError().getLocalizedMessage());
             }
-            // set visibility of widgets based on LoadState
             binding.progressBar.setVisibility(loadState instanceof LoadState.Loading ? View.VISIBLE : View.GONE);
             binding.retryButton.setVisibility(loadState instanceof LoadState.Error ? View.VISIBLE : View.GONE);
             binding.errorMsg.setVisibility(loadState instanceof LoadState.Error ? View.VISIBLE : View.GONE);

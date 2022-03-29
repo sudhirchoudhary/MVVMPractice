@@ -30,9 +30,8 @@ public class SecondViewModel extends ViewModel {
     }
 
     private void init() {
-        CoroutineScope scope = ViewModelKt.getViewModelScope(this);
         Pager<Integer, Image> pager = new Pager<>(new PagingConfig(1),
                 () -> new MyPagingSource(myService));
-        pagingDataLiveData = PagingLiveData.cachedIn(PagingLiveData.getLiveData(pager), scope);
+        pagingDataLiveData = PagingLiveData.cachedIn(PagingLiveData.getLiveData(pager), this);
     }
 }

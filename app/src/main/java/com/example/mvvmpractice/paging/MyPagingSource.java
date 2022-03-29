@@ -66,7 +66,7 @@ public class MyPagingSource extends ListenableFuturePagingSource<Integer, Image>
                         "photo",
                         true,
                         page,
-                        3), this::toLoadResult, executor);
+                        3), (response) -> toLoadResult(response, loadParams), executor);
 
         ListenableFuture<LoadResult<Integer, Image>> partialLoadResultFuture =
                 Futures.catching(pageFuture, HttpException.class, LoadResult.Error::new, executor);
@@ -75,10 +75,15 @@ public class MyPagingSource extends ListenableFuturePagingSource<Integer, Image>
                 IOException.class, LoadResult.Error::new, executor);
     }
 
-    private LoadResult<Integer, Image> toLoadResult(@NonNull Response response) {
-
+    private LoadResult<Integer, Image> toLoadResult(@NonNull Response response, LoadParams<Integer> loadParams) {
         Integer prevPage = page > 1 ? page-1 : null;
-        Integer nextPage = response.getHits().size() > 0 ? page + 1 : null;
+        Integer nextPage;
+        Log.e("Home", response.getHits().size() + " this is size");
+        if(response.getHits().size() < 3) {
+            nextPage = null;
+        } else {
+            nextPage = page + 1;
+        }
 
         return new LoadResult.Page<>(response.getHits(), prevPage, nextPage);
     }

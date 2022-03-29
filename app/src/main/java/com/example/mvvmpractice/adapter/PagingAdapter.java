@@ -1,6 +1,7 @@
 package com.example.mvvmpractice.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
